@@ -1,61 +1,87 @@
-var wins = 0;
-var ties = 0;
-var losses = 0;
+// Assignment Code
+var generateBtn = document.querySelector("#generate");
 
-// Array of options for computer to pick from
-var options = ["R", "P", "S"];
+function randomInt(min, max) {
+  if (!max) {
+    max = min
+    min = 0
+  }
+  var rand = Math.random()
+  return Math.floor(min*(1 - rand) + rand*max)
+}
+function getRandomItem(list) {
+  return list[randomInt(0, list.length - 1)]
+}
 
-var playGame = function() {
-  // Ask user for their choice
-  var userChoice = window.prompt("Enter R, P, or S:");
 
-  // If user pressed Cancel, immediately end function
-  if (!userChoice) {
-    return;
+function generatePassword() {
+
+  var userInput = window.prompt("How long do you want your password to be?")
+
+  var passwordLength = parseInt(userInput)
+  if (isNaN(passwordLength)) {
+    window.alert("That's not a number!")
+    return
+  } 
+  if (passwordLength < 8 || passwordLength > 128) {
+   window.alert("Password lenght must be between 8 and 128 characters") 
+   return 
   }
 
-  // Convert to uppercase to make comparisons easier
-  userChoice = userChoice.toUpperCase();
+  var userWantsNumbers = window.confirm("Would you like to include numbers in your password?")
+  var userWantsSymbols = window.confirm("Would you like to include symbols in your password?")
+  var userWantsLowercase = window.confirm("Would you like to include lowercase letteres in your password?")
+  var userWantsUppercase = window.confirm("Would you like to include uppercase letters in your password?")
 
-  // Get random index from array of options
-  var index = Math.floor(Math.random() * options.length);
-  var computerChoice = options[index];
+  var numberList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+  var symbolList = ["!", "@", "#", "$", "%", "^", "&", "*", "?", "/"]
+  var lowercaseList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+  var uppercaseList = []
 
-  window.alert("The computer chose " + computerChoice);
+  var optionsCart = []
 
-  // If choices are the same, it's a tie
-  if (userChoice === computerChoice) {
-    ties++;
-    window.alert("It's a tie!");
-
-  // Check every win condition for the player
-  } else if (
-    (userChoice === "R" && computerChoice === "S") || 
-    (userChoice === "P" && computerChoice === "R") || 
-    (userChoice === "S" && computerChoice === "P")
-  ) {
-    wins++;
-    window.alert("You win!");
-
-  // If above conditions failed, assume player lost
-  } else {
-    losses++;
-    window.alert("You lost!");
+  for (var i = 0; i < lowercaseList.length; i++) {
+    uppercaseList[i] = lowercaseList[i].toUpperCase()
   }
 
-  // Print stats with line breaks
-  window.alert(
-    "Stats:\nWins: " + wins + "\nLosses: " + losses + "\nTies: " + ties
-  );
-
-  // Ask user to play again
-  var playAgain = window.confirm("Play again?");
-
-  // If user pressed OK, run the function again
-  if (playAgain) {
-    playGame();
+  if (userWantsNumbers === true) {
+    optionsCart.push(numberList)
   }
-};
 
-// Run the game for the first time
-playGame();
+  if (userWantsSymbols === true) {
+    optionsCart.push(symbolList)
+  }
+
+  if (userWantsLowercase === true) {
+    optionsCart.push(lowercaseList)
+  }
+
+  if (userWantsUppercase === true) {
+    optionsCart.push(uppercaseList)
+  }
+  if (optionsCart.length === true) {
+    optionsCart.push(lowercaseList)
+  }
+
+ var generatePassword = ""
+
+ for (var i = 0; i < passwordLength; i++) {
+  var randomList = getRandomItem(optionsCart)
+  var randomChar = getRandomItem(randomList)
+  generatePassword += randomChar
+ }
+
+ return generatePassword
+}
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);

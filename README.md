@@ -8,27 +8,19 @@
 * [Questions](#questions)
 
 ## Description
-
-This challenge was a chance to showcase my skills with CSS by creating my profesinal porfolio in hopes of starting my journey as a software engineer
-
-
+This Password Generator generates passwords with a minimum of 8 and a maximum of 128 characters, symbols, lowercase and uppercase letters
 
 ## Important Links
 GitHub Repository
-(https://github.com/nbhsbg53/Portfolio)
+(https://github.com/nbhsbg53/Password-Generator)
 
 Deployed Application
-(http://127.0.0.1:5501/Portfolio/index.html#)
-
+(http://127.0.0.1:5501/Password-Generator/index.html)
 
 
 ## Languages Used
 
-HTML- (https://www.w3schools.com/html/)
-
-CSS- (https://www.w3schools.com/css/default.asp)
-
-Java Script- ()
+Java Script- (https://www.w3schools.com/js/)
 
 ## Questions
 
